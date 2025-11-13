@@ -141,35 +141,35 @@ export default function UpcomingRehearsals() {
 
                   <div className="parts-breakdown">
                     {Object.entries(partGroups).map(([partName, members]) => (
-                      members.length > 0 && (
-                        <div key={partName} className="part-group">
-                          <strong>{partName}:</strong>
-                          <div className="members-list">
-                            {members.map((member, idx) => (
-                              <span key={idx}>
-                                {member.status === 'maybe' ? (
-                                  <span
-                                    className="member-name maybe"
-                                    style={{ color: getReadinessColor(member.readiness) }}
-                                    title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}\n\nAttendance: ${member.attendanceComment}`}
-                                  >
-                                    ({member.name}{member.partComment && '•'} - "{member.attendanceComment}")
-                                  </span>
-                                ) : (
-                                  <span
-                                    className="member-name"
-                                    style={{ color: getReadinessColor(member.readiness) }}
-                                    title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}`}
-                                  >
-                                    {member.name}{member.partComment && '•'}
-                                  </span>
-                                )}
-                                {idx < members.length - 1 && ', '}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )
+                      <div key={partName} className="part-group">
+                        <strong>{partName}:</strong>{' '}
+                        {members.length === 0 ? (
+                          <span className="no-members">-</span>
+                        ) : (
+                          members.map((member, idx) => (
+                            <span key={idx}>
+                              {member.status === 'maybe' ? (
+                                <span
+                                  className="member-name maybe"
+                                  style={{ color: getReadinessColor(member.readiness) }}
+                                  title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}\n\nAttendance: ${member.attendanceComment}`}
+                                >
+                                  ({member.name}{member.partComment && '•'} - "{member.attendanceComment}")
+                                </span>
+                              ) : (
+                                <span
+                                  className="member-name"
+                                  style={{ color: getReadinessColor(member.readiness) }}
+                                  title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}`}
+                                >
+                                  {member.name}{member.partComment && '•'}
+                                </span>
+                              )}
+                              {idx < members.length - 1 && ', '}
+                            </span>
+                          ))
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
