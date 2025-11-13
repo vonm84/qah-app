@@ -1,0 +1,80 @@
+.manage-songs h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.csv-instructions {
+  background: #f8f9ff;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.csv-instructions p {
+  margin: 0 0 8px 0;
+  color: #555;
+}
+
+.csv-instructions code {
+  display: block;
+  background: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #667eea;
+}
+
+.csv-editor {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.csv-editor:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.save-btn {
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 25px;
+}
+
+.save-btn:hover {
+  background: #5568d3;
+}
+
+.current-songs h4 {
+  margin: 0 0 15px 0;
+  color: #555;
+}
+
+.current-songs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.current-songs li {
+  padding: 10px;
+  background: #f5f7fa;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.current-songs li strong {
+  color: #333;
+}

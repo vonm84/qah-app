@@ -1,0 +1,110 @@
+.upcoming-rehearsals {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.rehearsals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.rehearsal-section {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.rehearsal-section h2 {
+  margin: 0 0 20px 0;
+  color: #667eea;
+  font-size: 1.5em;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.song-section {
+  margin-bottom: 25px;
+}
+
+.song-section:last-child {
+  margin-bottom: 0;
+}
+
+.song-section h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.parts-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.part-group {
+  display: flex;
+  gap: 10px;
+}
+
+.part-group strong {
+  min-width: 100px;
+  color: #555;
+}
+
+.members-list {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.member-entry {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.member-name {
+  font-weight: 500;
+}
+
+.member-name.maybe {
+  font-style: italic;
+}
+
+.part-comment {
+  font-size: 0.85em;
+  color: #666;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .rehearsal-section {
+    padding: 20px 15px;
+  }
+
+  .rehearsal-section h2 {
+    font-size: 1.2em;
+  }
+
+  .song-section h3 {
+    font-size: 1.1em;
+  }
+
+  .parts-breakdown {
+    padding-left: 10px;
+  }
+
+  .part-group {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .part-group strong {
+    min-width: auto;
+  }
+}

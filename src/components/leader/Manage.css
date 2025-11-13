@@ -1,0 +1,53 @@
+.manage-view {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.manage-nav {
+  background: white;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.manage-nav button {
+  flex: 1;
+  padding: 15px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.manage-nav button:hover {
+  color: #667eea;
+  background: #f8f9ff;
+}
+
+.manage-nav button.active {
+  color: white;
+  background: #667eea;
+}
+
+.manage-content {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .manage-nav button {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
+  .manage-content {
+    padding: 20px 15px;
+  }
+}

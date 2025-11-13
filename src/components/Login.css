@@ -1,0 +1,123 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-box h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+  color: #333;
+}
+
+.login-box h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+  color: #555;
+  font-size: 1.2em;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-box label {
+  color: #555;
+  font-weight: 500;
+}
+
+.login-box input {
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.login-box button {
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-box button:hover {
+  background: #5568d3;
+}
+
+.language-selection {
+  text-align: center;
+}
+
+.language-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.language-buttons button {
+  flex: 1;
+}
+
+.confirm-existing {
+  text-align: center;
+}
+
+.confirm-existing p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.confirm-buttons button {
+  flex: 1;
+}
+
+.hint {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.error {
+  background: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 30px 20px;
+  }
+}

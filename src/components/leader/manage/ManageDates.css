@@ -1,0 +1,75 @@
+.manage-dates h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.dates-info {
+  background: #f8f9ff;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.dates-info p {
+  margin: 0 0 8px 0;
+  color: #555;
+}
+
+.dates-info p:last-child {
+  margin-bottom: 0;
+}
+
+.dates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #f5f7fa;
+  border-radius: 6px;
+  transition: opacity 0.3s;
+}
+
+.date-item.disabled {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.date-item span {
+  font-weight: 500;
+  color: #333;
+}
+
+.disable-btn,
+.enable-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.disable-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.disable-btn:hover {
+  background: #c0392b;
+}
+
+.enable-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.enable-btn:hover {
+  background: #229954;
+}

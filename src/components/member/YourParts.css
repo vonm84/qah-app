@@ -1,0 +1,121 @@
+.your-parts {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  background: white;
+  border-radius: 8px;
+}
+
+.songs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.song-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.song-card h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  background: white;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.readiness-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.readiness-btn {
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.readiness-btn:hover {
+  transform: translateX(4px);
+}
+
+.readiness-btn.active {
+  border-color: #333;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .song-card {
+    padding: 15px;
+  }
+
+  .song-card h3 {
+    font-size: 1.1em;
+  }
+
+  .readiness-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
