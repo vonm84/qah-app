@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import UpcomingRehearsals from './leader/UpcomingRehearsals';
+import AttendanceChart from './leader/AttendanceChart';
 import PartsGrid from './leader/PartsGrid';
 import Manage from './leader/Manage';
 import './LeaderDashboard.css';
@@ -33,6 +34,12 @@ export default function LeaderDashboard() {
           {t('everyones_attendance')}
         </button>
         <button
+          className={activeView === 'chart' ? 'active' : ''}
+          onClick={() => setActiveView('chart')}
+        >
+          {t('attendance_chart')}
+        </button>
+        <button
           className={activeView === 'parts' ? 'active' : ''}
           onClick={() => setActiveView('parts')}
         >
@@ -48,6 +55,7 @@ export default function LeaderDashboard() {
 
       <main className="dashboard-content leader-content">
         {activeView === 'attendance' && <UpcomingRehearsals />}
+        {activeView === 'chart' && <AttendanceChart />}
         {activeView === 'parts' && <PartsGrid />}
         {activeView === 'manage' && <Manage />}
       </main>

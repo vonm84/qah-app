@@ -1,0 +1,79 @@
+.attendance-chart {
+  max-width: 100%;
+}
+
+.chart-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.chart-table th,
+.chart-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.chart-table th {
+  background: #f5f7fa;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.member-header {
+  text-align: left;
+  min-width: 150px;
+  position: sticky;
+  left: 0;
+  background: #f5f7fa;
+  z-index: 20;
+}
+
+.date-header {
+  min-width: 100px;
+  font-size: 0.9em;
+}
+
+.member-name {
+  font-weight: 500;
+  text-align: left;
+  background: white;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.status-cell {
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .chart-table th,
+  .chart-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .member-header {
+    min-width: 120px;
+  }
+
+  .date-header {
+    min-width: 80px;
+    font-size: 0.85em;
+  }
+}
