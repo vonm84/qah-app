@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, cloneElement } from 'react';
 import './LongPressTooltip.css';
 
-export default function LongPressTooltip({ children, content, ...props }) {
+export default function LongPressTooltip({ children, content }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const longPressTimer = useRef(null);
   const tooltipTimer = useRef(null);
@@ -29,7 +29,7 @@ export default function LongPressTooltip({ children, content, ...props }) {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     // Toggle tooltip on click for desktop
     if (!showTooltip) {
       setShowTooltip(true);
@@ -54,21 +54,24 @@ export default function LongPressTooltip({ children, content, ...props }) {
     setShowTooltip(false);
   };
 
-  return (
-    <span
-      className="long-press-tooltip-wrapper"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchMove={handleTouchMove}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      {...props}
-    >
-      {children}
-      {showTooltip && content && (
-        <span className="long-press-tooltip">{content}</span>
-      )}
-    </span>
-  );
+  // Clone the child element and add event handlers and tooltip
+  const childWithHandlers = cloneElement(children, {
+    onTouchStart: handleTouchStart,
+    onTouchEnd: handleTouchEnd,
+    onTouchMove: handleTouchMove,
+    onClick: handleClick,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+    className: `${children.props.className || ''} long-press-tooltip-cell`.trim(),
+    children: (
+      <>
+        {children.props.children}
+        {showTooltip && content && (
+          <span className="long-press-tooltip">{content}</span>
+        )}
+      </>
+    )
+  });
+
+  return childWithHandlers;
 }

@@ -1,12 +1,11 @@
-.long-press-tooltip-wrapper {
+.long-press-tooltip-cell {
   position: relative;
-  display: inline-block;
   cursor: pointer;
 }
 
 .long-press-tooltip {
   position: absolute;
-  bottom: 125%;
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.9);
@@ -20,6 +19,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   pointer-events: none;
   line-height: 1.4;
+  margin-bottom: 8px;
 }
 
 .long-press-tooltip::after {
@@ -30,6 +30,12 @@
   transform: translateX(-50%);
   border: 6px solid transparent;
   border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+/* For inline elements (spans in UpcomingRehearsals) */
+span.long-press-tooltip-cell {
+  position: relative;
+  display: inline-block;
 }
 
 /* Adjust tooltip position if it would go off-screen */
