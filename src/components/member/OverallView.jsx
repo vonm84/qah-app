@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
 import UpcomingRehearsals from '../leader/UpcomingRehearsals';
+import LongPressTooltip from '../common/LongPressTooltip';
 import './OverallView.css';
 
 export default function OverallView() {
@@ -104,15 +105,22 @@ export default function OverallView() {
                   const color = getReadinessColor(assignment?.readiness_level);
                   const hasComment = assignment?.comments;
 
-                  return (
+                  const cellContent = (
                     <td
                       key={member.name}
                       className="part-cell"
                       style={{ backgroundColor: color }}
-                      title={hasComment ? assignment.comments : ''}
                     >
                       {partShort}{hasComment && '•'}
                     </td>
+                  );
+
+                  return hasComment ? (
+                    <LongPressTooltip key={member.name} content={assignment.comments}>
+                      {cellContent}
+                    </LongPressTooltip>
+                  ) : (
+                    cellContent
                   );
                 })}
               </tr>

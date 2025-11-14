@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
+import LongPressTooltip from '../common/LongPressTooltip';
 import './UpcomingRehearsals.css';
 
 export default function UpcomingRehearsals() {
@@ -149,21 +150,27 @@ export default function UpcomingRehearsals() {
                           members.map((member, idx) => (
                             <span key={idx}>
                               {member.status === 'maybe' ? (
-                                <span
-                                  className="member-name maybe"
-                                  style={{ color: getReadinessColor(member.readiness) }}
-                                  title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}\n\nAttendance: ${member.attendanceComment}`}
+                                <LongPressTooltip
+                                  content={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}\n\nAttendance: ${member.attendanceComment}`}
                                 >
-                                  ({member.name}{member.partComment && '•'} - "{member.attendanceComment}")
-                                </span>
+                                  <span
+                                    className="member-name maybe"
+                                    style={{ color: getReadinessColor(member.readiness) }}
+                                  >
+                                    ({member.name}{member.partComment && '•'} - "{member.attendanceComment}")
+                                  </span>
+                                </LongPressTooltip>
                               ) : (
-                                <span
-                                  className="member-name"
-                                  style={{ color: getReadinessColor(member.readiness) }}
-                                  title={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}`}
+                                <LongPressTooltip
+                                  content={`${getReadinessText(member.readiness)}${member.partComment ? '\n\n' + member.partComment : ''}`}
                                 >
-                                  {member.name}{member.partComment && '•'}
-                                </span>
+                                  <span
+                                    className="member-name"
+                                    style={{ color: getReadinessColor(member.readiness) }}
+                                  >
+                                    {member.name}{member.partComment && '•'}
+                                  </span>
+                                </LongPressTooltip>
                               )}
                               {idx < members.length - 1 && ', '}
                             </span>

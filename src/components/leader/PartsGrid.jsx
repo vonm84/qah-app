@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { readinessLevels } from '../../config/readinessLevels';
+import LongPressTooltip from '../common/LongPressTooltip';
 import '../member/OverallView.css';
 
 export default function PartsGrid() {
@@ -100,15 +101,22 @@ export default function PartsGrid() {
                   const color = getReadinessColor(assignment?.readiness_level);
                   const hasComment = assignment?.comments;
 
-                  return (
+                  const cellContent = (
                     <td
                       key={member.name}
                       className="part-cell"
                       style={{ backgroundColor: color }}
-                      title={hasComment ? assignment.comments : ''}
                     >
                       {partShort}{hasComment && '•'}
                     </td>
+                  );
+
+                  return hasComment ? (
+                    <LongPressTooltip key={member.name} content={assignment.comments}>
+                      {cellContent}
+                    </LongPressTooltip>
+                  ) : (
+                    cellContent
                   );
                 })}
               </tr>

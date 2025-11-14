@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
+import LongPressTooltip from '../common/LongPressTooltip';
 import './AttendanceChart.css';
 
 export default function AttendanceChart() {
@@ -117,15 +118,22 @@ export default function AttendanceChart() {
                   const status = memberAttendance?.status || null;
                   const comment = memberAttendance?.comment;
 
-                  return (
+                  const cellContent = (
                     <td
                       key={date.date}
                       className="status-cell"
                       style={{ backgroundColor: getStatusColor(status) }}
-                      title={status === 'maybe' && comment ? comment : ''}
                     >
                       {getStatusDisplay(status)}
                     </td>
+                  );
+
+                  return status === 'maybe' && comment ? (
+                    <LongPressTooltip key={date.date} content={comment}>
+                      {cellContent}
+                    </LongPressTooltip>
+                  ) : (
+                    cellContent
                   );
                 })}
               </tr>
