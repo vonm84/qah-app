@@ -157,7 +157,7 @@ export default function UpcomingRehearsals() {
                                     className="member-name maybe"
                                     style={{ color: getReadinessColor(member.readiness) }}
                                   >
-                                    ({member.name}{member.partComment && '•'} - "{member.attendanceComment}")
+                                    ({member.name}{member.partComment && '•'})
                                   </span>
                                 </LongPressTooltip>
                               ) : (
