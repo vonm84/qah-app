@@ -188,32 +188,29 @@ export default function PartsGrid() {
               <h5>{song.name}</h5>
 
               <div className="breakdown-subsection">
-                <strong>Parts:</strong>{' '}
-                {Object.entries(partCounts).map(([part, count], idx) => (
-                  <span key={part}>
+                <strong>Parts:</strong>
+                {Object.entries(partCounts).map(([part, count]) => (
+                  <div key={part} className="breakdown-line">
                     {part} - {count}
-                    {idx < Object.entries(partCounts).length - 1 && ', '}
-                  </span>
+                  </div>
                 ))}
               </div>
 
               <div className="breakdown-subsection">
-                <strong>Readiness:</strong>{' '}
-                {readinessLevels.map((level, idx) => (
+                <strong>Readiness:</strong>
+                {readinessLevels.map((level) => (
                   readinessCounts[level.id] > 0 && (
-                    <span key={level.id} className="readiness-item">
+                    <div key={level.id} className="breakdown-line readiness-item">
                       <span className="readiness-color-square" style={{ backgroundColor: level.color }}></span>
                       {level.en} - {readinessCounts[level.id]}
-                      {idx < readinessLevels.length - 1 && ', '}
-                    </span>
+                    </div>
                   )
                 ))}
                 {readinessCounts['null'] > 0 && (
-                  <span className="readiness-item">
-                    {Object.values(readinessCounts).some(c => c > 0 && readinessCounts[readinessLevels[readinessLevels.length - 1].id] !== c) ? ', ' : ''}
+                  <div className="breakdown-line readiness-item">
                     <span className="readiness-color-square" style={{ backgroundColor: '#f0f0f0' }}></span>
                     Not set - {readinessCounts['null']}
-                  </span>
+                  </div>
                 )}
               </div>
             </div>
