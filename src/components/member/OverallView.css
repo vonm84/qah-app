@@ -142,12 +142,10 @@
 .song-breakdown {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .song-breakdown:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
   border-bottom: none;
 }
 
@@ -169,6 +167,21 @@
 
 .breakdown-subsection strong {
   color: #333;
+}
+
+.readiness-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.readiness-color-square {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {

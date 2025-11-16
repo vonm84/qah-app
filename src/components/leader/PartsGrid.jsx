@@ -201,15 +201,17 @@ export default function PartsGrid() {
                 <strong>Readiness:</strong>{' '}
                 {readinessLevels.map((level, idx) => (
                   readinessCounts[level.id] > 0 && (
-                    <span key={level.id}>
+                    <span key={level.id} className="readiness-item">
+                      <span className="readiness-color-square" style={{ backgroundColor: level.color }}></span>
                       {level.en} - {readinessCounts[level.id]}
                       {idx < readinessLevels.length - 1 && ', '}
                     </span>
                   )
                 ))}
                 {readinessCounts['null'] > 0 && (
-                  <span>
+                  <span className="readiness-item">
                     {Object.values(readinessCounts).some(c => c > 0 && readinessCounts[readinessLevels[readinessLevels.length - 1].id] !== c) ? ', ' : ''}
+                    <span className="readiness-color-square" style={{ backgroundColor: '#f0f0f0' }}></span>
                     Not set - {readinessCounts['null']}
                   </span>
                 )}
