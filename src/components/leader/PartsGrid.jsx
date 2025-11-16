@@ -75,6 +75,47 @@ export default function PartsGrid() {
     return level ? level.color : '#f0f0f0';
   };
 
+  const getReadinessText = (levelId) => {
+    if (!levelId) return 'Not set';
+    const level = readinessLevels.find(l => l.id === levelId);
+    return level ? level.en : 'Not set';
+  };
+
+  const getSongBreakdown = (song) => {
+    const songAssignments = assignments[song.id] || {};
+
+    // Count by part
+    const partCounts = {};
+    if (song.parts) {
+      song.parts.forEach(part => {
+        partCounts[part.long] = 0;
+      });
+    }
+
+    // Count by readiness level
+    const readinessCounts = {};
+    readinessLevels.forEach(level => {
+      readinessCounts[level.id] = 0;
+    });
+    readinessCounts['null'] = 0; // for not set
+
+    Object.values(songAssignments).forEach(assignment => {
+      // Count parts
+      if (assignment.part && partCounts.hasOwnProperty(assignment.part)) {
+        partCounts[assignment.part]++;
+      }
+
+      // Count readiness
+      if (assignment.readiness_level) {
+        readinessCounts[assignment.readiness_level]++;
+      } else {
+        readinessCounts['null']++;
+      }
+    });
+
+    return { partCounts, readinessCounts };
+  };
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -135,6 +176,47 @@ export default function PartsGrid() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="breakdown-section">
+        <h4>Breakdown:</h4>
+        {songs.map(song => {
+          const { partCounts, readinessCounts } = getSongBreakdown(song);
+
+          return (
+            <div key={song.id} className="song-breakdown">
+              <h5>{song.name}</h5>
+
+              <div className="breakdown-subsection">
+                <strong>Parts:</strong>{' '}
+                {Object.entries(partCounts).map(([part, count], idx) => (
+                  <span key={part}>
+                    {part} - {count}
+                    {idx < Object.entries(partCounts).length - 1 && ', '}
+                  </span>
+                ))}
+              </div>
+
+              <div className="breakdown-subsection">
+                <strong>Readiness:</strong>{' '}
+                {readinessLevels.map((level, idx) => (
+                  readinessCounts[level.id] > 0 && (
+                    <span key={level.id}>
+                      {level.en} - {readinessCounts[level.id]}
+                      {idx < readinessLevels.length - 1 && ', '}
+                    </span>
+                  )
+                ))}
+                {readinessCounts['null'] > 0 && (
+                  <span>
+                    {Object.values(readinessCounts).some(c => c > 0 && readinessCounts[readinessLevels[readinessLevels.length - 1].id] !== c) ? ', ' : ''}
+                    Not set - {readinessCounts['null']}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

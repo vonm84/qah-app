@@ -126,6 +126,51 @@
   color: #555;
 }
 
+.breakdown-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.breakdown-section h4 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.song-breakdown {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.song-breakdown:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.song-breakdown h5 {
+  margin: 0 0 10px 0;
+  color: #667eea;
+  font-size: 1.1em;
+}
+
+.breakdown-subsection {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.breakdown-subsection:last-child {
+  margin-bottom: 0;
+}
+
+.breakdown-subsection strong {
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .grid-table th,
   .grid-table td {
