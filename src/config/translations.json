@@ -34,6 +34,7 @@
     "readiness_levels": "Readiness Levels:",
     "breakdown": "Breakdown:",
     "parts": "Parts:",
+    "readiness_breakdown": "Readiness:",
     "not_set": "Not set"
   },
   "pt": {
@@ -71,6 +72,7 @@
     "readiness_levels": "Níveis de Prontidão:",
     "breakdown": "Resumo:",
     "parts": "Partes:",
+    "readiness_breakdown": "Prontidão:",
     "not_set": "Não definido"
   }
 }

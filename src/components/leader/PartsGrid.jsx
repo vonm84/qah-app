@@ -199,7 +199,7 @@ export default function PartsGrid() {
               </div>
 
               <div className="breakdown-subsection">
-                <strong>{t('readiness')}</strong>
+                <strong>{t('readiness_breakdown')}</strong>
                 {readinessLevels.map((level) => (
                   readinessCounts[level.id] > 0 && (
                     <div key={level.id} className="breakdown-line readiness-item">
