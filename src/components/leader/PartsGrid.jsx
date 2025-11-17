@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
 import LongPressTooltip from '../common/LongPressTooltip';
 import '../member/OverallView.css';
 
 export default function PartsGrid() {
+  const { language, t } = useLanguage();
   const [songs, setSongs] = useState([]);
   const [members, setMembers] = useState([]);
   const [assignments, setAssignments] = useState({});
@@ -76,9 +78,9 @@ export default function PartsGrid() {
   };
 
   const getReadinessText = (levelId) => {
-    if (!levelId) return 'Not set';
+    if (!levelId) return t('not_set');
     const level = readinessLevels.find(l => l.id === levelId);
-    return level ? level.en : 'Not set';
+    return level ? level[language] : t('not_set');
   };
 
   const getSongBreakdown = (song) => {
@@ -126,7 +128,7 @@ export default function PartsGrid() {
         <table className="grid-table">
           <thead>
             <tr>
-              <th className="song-header">Song</th>
+              <th className="song-header">{t('song')}</th>
               {members.map(member => (
                 <th key={member.name}>{member.name}</th>
               ))}
@@ -167,19 +169,19 @@ export default function PartsGrid() {
       </div>
 
       <div className="legend">
-        <h4>Readiness Levels:</h4>
+        <h4>{t('readiness_levels')}</h4>
         <div className="legend-items">
           {readinessLevels.map(level => (
             <div key={level.id} className="legend-item">
               <div className="legend-color" style={{ backgroundColor: level.color }}></div>
-              <span>{level.en}</span>
+              <span>{level[language]}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className="breakdown-section">
-        <h4>Breakdown:</h4>
+        <h4>{t('breakdown')}</h4>
         {songs.map(song => {
           const { partCounts, readinessCounts } = getSongBreakdown(song);
 
@@ -188,7 +190,7 @@ export default function PartsGrid() {
               <h5>{song.name}</h5>
 
               <div className="breakdown-subsection">
-                <strong>Parts:</strong>
+                <strong>{t('parts')}</strong>
                 {Object.entries(partCounts).map(([part, count]) => (
                   <div key={part} className="breakdown-line">
                     {part} - {count}
@@ -197,19 +199,19 @@ export default function PartsGrid() {
               </div>
 
               <div className="breakdown-subsection">
-                <strong>Readiness:</strong>
+                <strong>{t('readiness')}</strong>
                 {readinessLevels.map((level) => (
                   readinessCounts[level.id] > 0 && (
                     <div key={level.id} className="breakdown-line readiness-item">
                       <span className="readiness-color-square" style={{ backgroundColor: level.color }}></span>
-                      {level.en} - {readinessCounts[level.id]}
+                      {level[language]} - {readinessCounts[level.id]}
                     </div>
                   )
                 ))}
                 {readinessCounts['null'] > 0 && (
                   <div className="breakdown-line readiness-item">
                     <span className="readiness-color-square" style={{ backgroundColor: '#f0f0f0' }}></span>
-                    Not set - {readinessCounts['null']}
+                    {t('not_set')} - {readinessCounts['null']}
                   </div>
                 )}
               </div>

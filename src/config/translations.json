@@ -30,7 +30,11 @@
     "name_exists": "Name already found - is this you?",
     "choose_different_name": "Please choose a different name",
     "explain_maybe": "Please explain why you're unsure",
-    "attendance_stats": "Attendance Stats"
+    "attendance_stats": "Attendance Stats",
+    "readiness_levels": "Readiness Levels:",
+    "breakdown": "Breakdown:",
+    "parts": "Parts:",
+    "not_set": "Not set"
   },
   "pt": {
     "app_title": "Queer at Heart Ensaios",
@@ -63,6 +67,10 @@
     "name_exists": "Nome já encontrado - é você?",
     "choose_different_name": "Por favor, escolha um nome diferente",
     "explain_maybe": "Por favor, explique por que você está incertx",
-    "attendance_stats": "Estatísticas de Presença"
+    "attendance_stats": "Estatísticas de Presença",
+    "readiness_levels": "Níveis de Prontidão:",
+    "breakdown": "Resumo:",
+    "parts": "Partes:",
+    "not_set": "Não definido"
   }
 }
