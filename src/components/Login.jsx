@@ -133,7 +133,6 @@ export default function Login() {
               type="text"
               value={pronounsEn}
               onChange={(e) => setPronounsEn(e.target.value)}
-              placeholder="she/her, he/him, they/them..."
             />
 
             <label>{t('pronouns_pt')}</label>
@@ -141,10 +140,9 @@ export default function Login() {
               type="text"
               value={pronounsPt}
               onChange={(e) => setPronounsPt(e.target.value)}
-              placeholder="ela/dela, ele/dele, elu/delu..."
             />
 
-            <label>{t('status')}</label>
+            <label>{t('status_optional')}</label>
             <textarea
               value={status}
               onChange={(e) => setStatus(e.target.value)}

@@ -39,7 +39,8 @@
     "your_profile": "Your Profile",
     "pronouns_en": "Pronouns (EN)",
     "pronouns_pt": "Pronouns (PT)",
-    "status": "Status"
+    "status": "Status",
+    "status_optional": "Status (if you want)"
   },
   "pt": {
     "app_title": "Queer at Heart Ensaios",
@@ -81,6 +82,7 @@
     "your_profile": "Seu Perfil",
     "pronouns_en": "Pronomes (EN)",
     "pronouns_pt": "Pronomes (PT)",
-    "status": "Status"
+    "status": "Status",
+    "status_optional": "Status (se quiser)"
   }
 }
