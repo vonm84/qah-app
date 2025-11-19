@@ -29,7 +29,7 @@ export default function PartsGrid() {
       // Fetch members (exclude Admin) with profile data
       const { data: membersData, error: membersError } = await supabase
         .from('members')
-        .select('name, pronouns_en, pronouns_pt, status')
+        .select('name, pronouns_en, pronouns_pt')
         .neq('name', 'Admin')
         .order('name');
 
@@ -134,19 +134,10 @@ export default function PartsGrid() {
 
                 return (
                   <th key={member.name} className="member-header-cell">
-                    {member.status ? (
-                      <LongPressTooltip content={member.status}>
-                        <div className="member-name-wrapper">
-                          <div className="member-name-main">{member.name}</div>
-                          {pronouns && <div className="member-pronouns">{pronouns}</div>}
-                        </div>
-                      </LongPressTooltip>
-                    ) : (
-                      <div className="member-name-wrapper">
-                        <div className="member-name-main">{member.name}</div>
-                        {pronouns && <div className="member-pronouns">{pronouns}</div>}
-                      </div>
-                    )}
+                    <div className="member-name-wrapper">
+                      <div className="member-name-main">{member.name}</div>
+                      {pronouns && <div className="member-pronouns">{pronouns}</div>}
+                    </div>
                   </th>
                 );
               })}

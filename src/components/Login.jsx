@@ -11,7 +11,6 @@ export default function Login() {
   const [name, setName] = useState('');
   const [pronounsEn, setPronounsEn] = useState('');
   const [pronounsPt, setPronounsPt] = useState('');
-  const [status, setStatus] = useState('');
   const [error, setError] = useState('');
   const [existingMember, setExistingMember] = useState(null);
   const [showNameTakenHint, setShowNameTakenHint] = useState(false);
@@ -59,7 +58,7 @@ export default function Login() {
 
     try {
       // Create member with profile data
-      await login(password, name.trim(), language, pronounsEn, pronounsPt, status);
+      await login(password, name.trim(), language, pronounsEn, pronounsPt);
     } catch (err) {
       setError(err.message);
     }
@@ -140,14 +139,6 @@ export default function Login() {
               type="text"
               value={pronounsPt}
               onChange={(e) => setPronounsPt(e.target.value)}
-            />
-
-            <label>{t('status_optional')}</label>
-            <textarea
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              placeholder=""
-              rows={3}
             />
 
             <button type="submit">{t('login')}</button>

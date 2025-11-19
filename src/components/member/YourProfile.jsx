@@ -9,7 +9,6 @@ export default function YourProfile() {
   const { t } = useLanguage();
   const [pronounsEn, setPronounsEn] = useState('');
   const [pronounsPt, setPronounsPt] = useState('');
-  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -21,7 +20,7 @@ export default function YourProfile() {
     try {
       const { data, error } = await supabase
         .from('members')
-        .select('pronouns_en, pronouns_pt, status')
+        .select('pronouns_en, pronouns_pt')
         .eq('name', user.name)
         .single();
 
@@ -29,7 +28,6 @@ export default function YourProfile() {
 
       setPronounsEn(data.pronouns_en || '');
       setPronounsPt(data.pronouns_pt || '');
-      setStatus(data.status || '');
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {
@@ -44,8 +42,7 @@ export default function YourProfile() {
         .from('members')
         .update({
           pronouns_en: pronounsEn,
-          pronouns_pt: pronounsPt,
-          status: status
+          pronouns_pt: pronounsPt
         })
         .eq('name', user.name);
 
@@ -80,16 +77,6 @@ export default function YourProfile() {
             type="text"
             value={pronounsPt}
             onChange={(e) => setPronounsPt(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>{t('status_optional')}</label>
-          <textarea
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            placeholder=""
-            rows={4}
           />
         </div>
 
