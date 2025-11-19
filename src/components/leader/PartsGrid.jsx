@@ -131,19 +131,23 @@ export default function PartsGrid() {
               <th className="song-header">{t('song')}</th>
               {members.map(member => {
                 const pronouns = language === 'en' ? member.pronouns_en : member.pronouns_pt;
-                const headerContent = (
-                  <th key={member.name} className="member-header-cell">
-                    <div className="member-name-main">{member.name}</div>
-                    {pronouns && <div className="member-pronouns">{pronouns}</div>}
-                  </th>
-                );
 
-                return member.status ? (
-                  <LongPressTooltip key={member.name} content={member.status}>
-                    {headerContent}
-                  </LongPressTooltip>
-                ) : (
-                  headerContent
+                return (
+                  <th key={member.name} className="member-header-cell">
+                    {member.status ? (
+                      <LongPressTooltip content={member.status}>
+                        <div className="member-name-wrapper">
+                          <div className="member-name-main">{member.name}</div>
+                          {pronouns && <div className="member-pronouns">{pronouns}</div>}
+                        </div>
+                      </LongPressTooltip>
+                    ) : (
+                      <div className="member-name-wrapper">
+                        <div className="member-name-main">{member.name}</div>
+                        {pronouns && <div className="member-pronouns">{pronouns}</div>}
+                      </div>
+                    )}
+                  </th>
                 );
               })}
             </tr>

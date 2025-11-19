@@ -38,6 +38,12 @@ span.long-press-tooltip-cell {
   display: inline-block;
 }
 
+/* For table header elements */
+th.long-press-tooltip-cell {
+  position: relative !important;
+  cursor: pointer;
+}
+
 /* Adjust tooltip position if it would go off-screen */
 @media (max-width: 768px) {
   .long-press-tooltip {
