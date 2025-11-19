@@ -35,7 +35,11 @@
     "breakdown": "Breakdown:",
     "parts": "Parts:",
     "readiness_breakdown": "Readiness:",
-    "not_set": "Not set"
+    "not_set": "Not set",
+    "your_profile": "Your Profile",
+    "pronouns_en": "Pronouns (EN)",
+    "pronouns_pt": "Pronouns (PT)",
+    "status": "Status"
   },
   "pt": {
     "app_title": "Queer at Heart Ensaios",
@@ -73,6 +77,10 @@
     "breakdown": "Resumo:",
     "parts": "Partes:",
     "readiness_breakdown": "Prontidão:",
-    "not_set": "Não definido"
+    "not_set": "Não definido",
+    "your_profile": "Seu Perfil",
+    "pronouns_en": "Pronomes (EN)",
+    "pronouns_pt": "Pronomes (PT)",
+    "status": "Status"
   }
 }

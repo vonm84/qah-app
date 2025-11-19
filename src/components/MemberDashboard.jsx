@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import YourParts from './member/YourParts';
 import Attendance from './member/Attendance';
 import OverallView from './member/OverallView';
+import YourProfile from './member/YourProfile';
 import './MemberDashboard.css';
 
 export default function MemberDashboard() {
@@ -44,12 +45,19 @@ export default function MemberDashboard() {
         >
           {t('overall_view')}
         </button>
+        <button
+          className={activeTab === 'profile' ? 'active' : ''}
+          onClick={() => setActiveTab('profile')}
+        >
+          {t('your_profile')}
+        </button>
       </nav>
 
       <main className="dashboard-content">
         {activeTab === 'parts' && <YourParts />}
         {activeTab === 'attendance' && <Attendance />}
         {activeTab === 'overall' && <OverallView />}
+        {activeTab === 'profile' && <YourProfile />}
       </main>
     </div>
   );

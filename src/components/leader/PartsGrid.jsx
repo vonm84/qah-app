@@ -26,10 +26,10 @@ export default function PartsGrid() {
 
       if (songsError) throw songsError;
 
-      // Fetch members (exclude Admin)
+      // Fetch members (exclude Admin) with profile data
       const { data: membersData, error: membersError } = await supabase
         .from('members')
-        .select('*')
+        .select('name, pronouns_en, pronouns_pt, status')
         .neq('name', 'Admin')
         .order('name');
 
@@ -129,9 +129,23 @@ export default function PartsGrid() {
           <thead>
             <tr>
               <th className="song-header">{t('song')}</th>
-              {members.map(member => (
-                <th key={member.name}>{member.name}</th>
-              ))}
+              {members.map(member => {
+                const pronouns = language === 'en' ? member.pronouns_en : member.pronouns_pt;
+                const headerContent = (
+                  <th key={member.name} className="member-header-cell">
+                    <div className="member-name-main">{member.name}</div>
+                    {pronouns && <div className="member-pronouns">{pronouns}</div>}
+                  </th>
+                );
+
+                return member.status ? (
+                  <LongPressTooltip key={member.name} content={member.status}>
+                    {headerContent}
+                  </LongPressTooltip>
+                ) : (
+                  headerContent
+                );
+              })}
             </tr>
           </thead>
           <tbody>

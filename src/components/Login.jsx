@@ -6,9 +6,12 @@ import './Login.css';
 export default function Login() {
   const { login, checkMemberExists } = useAuth();
   const { language, setLanguage, t } = useLanguage();
-  const [step, setStep] = useState('password'); // password, language, name, confirm
+  const [step, setStep] = useState('password'); // password, language, name, profile, confirm
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [pronounsEn, setPronounsEn] = useState('');
+  const [pronounsPt, setPronounsPt] = useState('');
+  const [status, setStatus] = useState('');
   const [error, setError] = useState('');
   const [existingMember, setExistingMember] = useState(null);
   const [showNameTakenHint, setShowNameTakenHint] = useState(false);
@@ -42,9 +45,21 @@ export default function Login() {
         setExistingMember(member);
         setStep('confirm');
       } else {
-        // New member - proceed with login
-        await login(password, name.trim(), language);
+        // New member - show profile screen
+        setStep('profile');
       }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      // Create member with profile data
+      await login(password, name.trim(), language, pronounsEn, pronounsPt, status);
     } catch (err) {
       setError(err.message);
     }
@@ -106,6 +121,38 @@ export default function Login() {
             {showNameTakenHint && (
               <p className="hint">{t('choose_different_name')}</p>
             )}
+          </form>
+        )}
+
+        {step === 'profile' && (
+          <form onSubmit={handleProfileSubmit} className="profile-form-login">
+            <h2>{t('your_profile')}</h2>
+
+            <label>{t('pronouns_en')}</label>
+            <input
+              type="text"
+              value={pronounsEn}
+              onChange={(e) => setPronounsEn(e.target.value)}
+              placeholder="she/her, he/him, they/them..."
+            />
+
+            <label>{t('pronouns_pt')}</label>
+            <input
+              type="text"
+              value={pronounsPt}
+              onChange={(e) => setPronounsPt(e.target.value)}
+              placeholder="ela/dela, ele/dele, elu/delu..."
+            />
+
+            <label>{t('status')}</label>
+            <textarea
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              placeholder=""
+              rows={3}
+            />
+
+            <button type="submit">{t('login')}</button>
           </form>
         )}
 

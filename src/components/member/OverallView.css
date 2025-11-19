@@ -66,6 +66,22 @@
   z-index: 10;
 }
 
+.member-header-cell {
+  padding: 12px !important;
+}
+
+.member-name-main {
+  font-weight: 600;
+  color: #333;
+}
+
+.member-pronouns {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #666;
+  margin-top: 4px;
+}
+
 .song-header {
   text-align: left;
   min-width: 200px;
