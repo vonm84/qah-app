@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { REHEARSAL_DAY } from '../../config/constants';
 import './Attendance.css';
 
 export default function Attendance() {
@@ -17,8 +18,71 @@ export default function Attendance() {
     fetchData();
   }, [user]);
 
+  const generateRehearsalDates = () => {
+    const dates = [];
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    // Generate for current month and next month
+    for (let monthOffset = 0; monthOffset <= 1; monthOffset++) {
+      const targetMonth = currentMonth + monthOffset;
+      const targetYear = currentYear + Math.floor(targetMonth / 12);
+      const adjustedMonth = targetMonth % 12;
+
+      const firstDay = new Date(targetYear, adjustedMonth, 1);
+      const lastDay = new Date(targetYear, adjustedMonth + 1, 0);
+
+      let current = new Date(firstDay);
+
+      // Find first rehearsal day of the month
+      while (current.getDay() !== REHEARSAL_DAY) {
+        current.setDate(current.getDate() + 1);
+      }
+
+      // Add all rehearsal days in the month
+      while (current <= lastDay) {
+        if (current >= today) {
+          dates.push(current.toISOString().split('T')[0]);
+        }
+        current.setDate(current.getDate() + 7);
+      }
+    }
+
+    return dates;
+  };
+
+  const ensureDatesExist = async () => {
+    try {
+      // Get existing dates from database
+      const { data: existingDates } = await supabase
+        .from('rehearsal_dates')
+        .select('date');
+
+      const existingDateSet = new Set(existingDates?.map(d => d.date) || []);
+
+      // Generate dates for current + next month
+      const generatedDates = generateRehearsalDates();
+
+      // Find new dates that don't exist yet
+      const newDates = generatedDates.filter(date => !existingDateSet.has(date));
+
+      // Insert new dates (enabled by default)
+      if (newDates.length > 0) {
+        await supabase
+          .from('rehearsal_dates')
+          .insert(newDates.map(date => ({ date, enabled: true })));
+      }
+    } catch (error) {
+      console.error('Error ensuring dates exist:', error);
+    }
+  };
+
   const fetchData = async () => {
     try {
+      // Ensure dates exist for current + next month
+      await ensureDatesExist();
+
       // Fetch enabled rehearsal dates
       const { data: datesData, error: datesError } = await supabase
         .from('rehearsal_dates')
