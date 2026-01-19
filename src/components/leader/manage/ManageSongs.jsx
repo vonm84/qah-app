@@ -73,19 +73,56 @@ export default function ManageSongs() {
   const handleSaveCSV = async () => {
     try {
       const parsed = parseCSV(csvText);
+      const parsedNames = parsed.map(s => s.name);
 
-      // Delete all existing songs
-      await supabase.from('songs').delete().neq('id', 0);
+      // Get current songs to determine what to update/delete/insert
+      const { data: currentSongs, error: fetchError } = await supabase
+        .from('songs')
+        .select('id, name');
+
+      if (fetchError) throw fetchError;
+
+      const currentByName = {};
+      currentSongs?.forEach(s => { currentByName[s.name] = s.id; });
+
+      // Songs to delete (exist in DB but not in new CSV)
+      const toDelete = currentSongs?.filter(s => !parsedNames.includes(s.name)) || [];
+
+      // Songs to update (exist in both)
+      const toUpdate = parsed.filter(s => currentByName[s.name]);
+
+      // Songs to insert (new in CSV)
+      const toInsert = parsed.filter(s => !currentByName[s.name]);
+
+      // Delete removed songs (this will cascade delete their assignments)
+      if (toDelete.length > 0) {
+        const deleteIds = toDelete.map(s => s.id);
+        const { error: deleteError } = await supabase
+          .from('songs')
+          .delete()
+          .in('id', deleteIds);
+        if (deleteError) throw deleteError;
+      }
+
+      // Update existing songs (preserves IDs and assignments!)
+      for (const song of toUpdate) {
+        const { error: updateError } = await supabase
+          .from('songs')
+          .update({ parts: song.parts })
+          .eq('id', currentByName[song.name]);
+        if (updateError) throw updateError;
+      }
 
       // Insert new songs
-      const { error } = await supabase
-        .from('songs')
-        .insert(parsed.map(song => ({
-          name: song.name,
-          parts: song.parts
-        })));
-
-      if (error) throw error;
+      if (toInsert.length > 0) {
+        const { error: insertError } = await supabase
+          .from('songs')
+          .insert(toInsert.map(song => ({
+            name: song.name,
+            parts: song.parts
+          })));
+        if (insertError) throw insertError;
+      }
 
       alert('Songs updated successfully!');
       fetchSongs();
