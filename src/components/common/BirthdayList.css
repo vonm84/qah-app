@@ -1,0 +1,89 @@
+.birthday-list {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-birthdays {
+  text-align: center;
+  color: #999;
+  padding: 40px 20px;
+  font-size: 16px;
+}
+
+.birthday-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.birthday-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 6px;
+  background: #f9f9fb;
+  border: 1px solid #e8e8ee;
+}
+
+.birthday-today {
+  background: #fef9e7;
+  border-color: #f0d860;
+}
+
+.birthday-member {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.birthday-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.birthday-pronouns {
+  font-size: 0.85em;
+  color: #888;
+}
+
+.birthday-date-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: right;
+}
+
+.birthday-date {
+  color: #555;
+}
+
+.birthday-relative {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #667eea;
+  white-space: nowrap;
+}
+
+.birthday-today .birthday-relative {
+  color: #d4a017;
+}
+
+@media (max-width: 768px) {
+  .birthday-list {
+    padding: 15px;
+  }
+
+  .birthday-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .birthday-date-info {
+    text-align: left;
+  }
+}

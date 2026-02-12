@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
 import UpcomingRehearsals from '../leader/UpcomingRehearsals';
+import BirthdayList from '../common/BirthdayList';
 import LongPressTooltip from '../common/LongPressTooltip';
 import './OverallView.css';
 
@@ -167,9 +168,17 @@ export default function OverallView() {
         >
           {t('everyones_attendance')}
         </button>
+        <button
+          className={activeSection === 'birthdays' ? 'active' : ''}
+          onClick={() => setActiveSection('birthdays')}
+        >
+          {t('birthdays')}
+        </button>
       </div>
 
-      {activeSection === 'parts' ? partsView : <UpcomingRehearsals />}
+      {activeSection === 'parts' && partsView}
+      {activeSection === 'attendance' && <UpcomingRehearsals />}
+      {activeSection === 'birthdays' && <BirthdayList />}
     </div>
   );
 }

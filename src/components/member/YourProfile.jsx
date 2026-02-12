@@ -9,6 +9,8 @@ export default function YourProfile() {
   const { t } = useLanguage();
   const [pronounsEn, setPronounsEn] = useState('');
   const [pronounsPt, setPronounsPt] = useState('');
+  const [birthdayDay, setBirthdayDay] = useState('');
+  const [birthdayMonth, setBirthdayMonth] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -20,7 +22,7 @@ export default function YourProfile() {
     try {
       const { data, error } = await supabase
         .from('members')
-        .select('pronouns_en, pronouns_pt')
+        .select('pronouns_en, pronouns_pt, birthday_day, birthday_month')
         .eq('name', user.name)
         .single();
 
@@ -28,6 +30,8 @@ export default function YourProfile() {
 
       setPronounsEn(data.pronouns_en || '');
       setPronounsPt(data.pronouns_pt || '');
+      setBirthdayDay(data.birthday_day || '');
+      setBirthdayMonth(data.birthday_month || '');
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {
@@ -42,7 +46,9 @@ export default function YourProfile() {
         .from('members')
         .update({
           pronouns_en: pronounsEn,
-          pronouns_pt: pronounsPt
+          pronouns_pt: pronounsPt,
+          birthday_day: birthdayDay || null,
+          birthday_month: birthdayMonth || null
         })
         .eq('name', user.name);
 
@@ -78,6 +84,30 @@ export default function YourProfile() {
             value={pronounsPt}
             onChange={(e) => setPronounsPt(e.target.value)}
           />
+        </div>
+
+        <div className="form-group">
+          <label>{t('your_birthday')}</label>
+          <div className="birthday-selects">
+            <select
+              value={birthdayDay}
+              onChange={(e) => setBirthdayDay(e.target.value)}
+            >
+              <option value="">{t('birthday_day')}</option>
+              {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+                <option key={day} value={day}>{day}</option>
+              ))}
+            </select>
+            <select
+              value={birthdayMonth}
+              onChange={(e) => setBirthdayMonth(e.target.value)}
+            >
+              <option value="">{t('birthday_month')}</option>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+                <option key={month} value={month}>{t(`month_${month}`)}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <button

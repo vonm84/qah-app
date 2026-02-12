@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import UpcomingRehearsals from './leader/UpcomingRehearsals';
 import AttendanceChart from './leader/AttendanceChart';
 import PartsGrid from './leader/PartsGrid';
+import BirthdayList from './common/BirthdayList';
 import Manage from './leader/Manage';
 import './LeaderDashboard.css';
 
@@ -46,6 +47,12 @@ export default function LeaderDashboard() {
           {t('everyones_parts')}
         </button>
         <button
+          className={activeView === 'birthdays' ? 'active' : ''}
+          onClick={() => setActiveView('birthdays')}
+        >
+          {t('birthdays')}
+        </button>
+        <button
           className={activeView === 'manage' ? 'active' : ''}
           onClick={() => setActiveView('manage')}
         >
@@ -57,6 +64,7 @@ export default function LeaderDashboard() {
         {activeView === 'attendance' && <UpcomingRehearsals />}
         {activeView === 'chart' && <AttendanceChart />}
         {activeView === 'parts' && <PartsGrid />}
+        {activeView === 'birthdays' && <BirthdayList />}
         {activeView === 'manage' && <Manage />}
       </main>
     </div>
