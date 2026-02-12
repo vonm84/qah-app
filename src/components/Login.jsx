@@ -11,6 +11,8 @@ export default function Login() {
   const [name, setName] = useState('');
   const [pronounsEn, setPronounsEn] = useState('');
   const [pronounsPt, setPronounsPt] = useState('');
+  const [birthdayDay, setBirthdayDay] = useState('');
+  const [birthdayMonth, setBirthdayMonth] = useState('');
   const [error, setError] = useState('');
   const [existingMember, setExistingMember] = useState(null);
   const [showNameTakenHint, setShowNameTakenHint] = useState(false);
@@ -58,7 +60,7 @@ export default function Login() {
 
     try {
       // Create member with profile data
-      await login(password, name.trim(), language, pronounsEn, pronounsPt);
+      await login(password, name.trim(), language, pronounsEn, pronounsPt, birthdayDay || null, birthdayMonth || null);
     } catch (err) {
       setError(err.message);
     }
@@ -140,6 +142,28 @@ export default function Login() {
               value={pronounsPt}
               onChange={(e) => setPronounsPt(e.target.value)}
             />
+
+            <label>{t('your_birthday')}</label>
+            <div className="birthday-selects-login">
+              <select
+                value={birthdayDay}
+                onChange={(e) => setBirthdayDay(e.target.value)}
+              >
+                <option value="">{t('birthday_day')}</option>
+                {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+                  <option key={day} value={day}>{day}</option>
+                ))}
+              </select>
+              <select
+                value={birthdayMonth}
+                onChange={(e) => setBirthdayMonth(e.target.value)}
+              >
+                <option value="">{t('birthday_month')}</option>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+                  <option key={month} value={month}>{t(`month_${month}`)}</option>
+                ))}
+              </select>
+            </div>
 
             <button type="submit">{t('login')}</button>
           </form>

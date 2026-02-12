@@ -69,6 +69,27 @@
   background: #5568d3;
 }
 
+.birthday-selects-login {
+  display: flex;
+  gap: 10px;
+}
+
+.birthday-selects-login select {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+  background: white;
+}
+
+.birthday-selects-login select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
 .language-selection {
   text-align: center;
 }

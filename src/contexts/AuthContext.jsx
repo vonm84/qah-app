@@ -38,14 +38,16 @@ export function AuthProvider({ children }) {
     return { exists: !!data, member: data };
   };
 
-  const createMember = async (name, language, pronounsEn = '', pronounsPt = '') => {
+  const createMember = async (name, language, pronounsEn = '', pronounsPt = '', birthdayDay = null, birthdayMonth = null) => {
     const { data, error } = await supabase
       .from('members')
       .insert([{
         name,
         language,
         pronouns_en: pronounsEn,
-        pronouns_pt: pronounsPt
+        pronouns_pt: pronounsPt,
+        birthday_day: birthdayDay || null,
+        birthday_month: birthdayMonth || null
       }])
       .select()
       .single();
@@ -54,7 +56,7 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  const login = async (password, name, language, pronounsEn = '', pronounsPt = '') => {
+  const login = async (password, name, language, pronounsEn = '', pronounsPt = '', birthdayDay = null, birthdayMonth = null) => {
     if (!verifySitePassword(password)) {
       throw new Error('Invalid password');
     }
@@ -66,7 +68,7 @@ export function AuthProvider({ children }) {
 
     if (!exists) {
       // Create new member with profile data
-      await createMember(name, language, pronounsEn, pronounsPt);
+      await createMember(name, language, pronounsEn, pronounsPt, birthdayDay, birthdayMonth);
     }
 
     localStorage.setItem('choir_member_name', name);
