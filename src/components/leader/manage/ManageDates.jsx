@@ -52,6 +52,13 @@ export default function ManageDates() {
     }
   };
 
+  const formatDateLocal = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const generateRehearsalDates = () => {
     const dates = [];
     const today = new Date();
@@ -77,7 +84,7 @@ export default function ManageDates() {
       // Add all Tuesdays in the month
       while (current <= lastDay) {
         if (current >= today) {
-          dates.push(current.toISOString().split('T')[0]);
+          dates.push(formatDateLocal(current));
         }
         current.setDate(current.getDate() + 7);
       }
