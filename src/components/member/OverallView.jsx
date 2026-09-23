@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
 import UpcomingRehearsals from '../leader/UpcomingRehearsals';
+import AttendanceChart from '../leader/AttendanceChart';
 import BirthdayList from '../common/BirthdayList';
 import LongPressTooltip from '../common/LongPressTooltip';
 import SongBreakdown from '../common/SongBreakdown';
@@ -180,7 +181,13 @@ export default function OverallView() {
       </div>
 
       {activeSection === 'parts' && partsView}
-      {activeSection === 'attendance' && <UpcomingRehearsals />}
+      {activeSection === 'attendance' && (
+        <>
+          <AttendanceChart />
+          <div className="attendance-breakdown-spacer" />
+          <UpcomingRehearsals />
+        </>
+      )}
       {activeSection === 'birthdays' && <BirthdayList />}
     </div>
   );

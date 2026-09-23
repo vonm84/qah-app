@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { readinessLevels } from '../../config/readinessLevels';
 import LongPressTooltip from '../common/LongPressTooltip';
+import { ATTENDING_STATUSES } from '../../config/constants';
 import './UpcomingRehearsals.css';
 
 export default function UpcomingRehearsals() {
@@ -74,7 +75,7 @@ export default function UpcomingRehearsals() {
             const memberAttendance = dateAttendance.find(a => a.member_name === assignment.member_name);
 
             // Skip if no part is assigned or if member is not attending
-            if (!assignment.part || !memberAttendance || (memberAttendance.status !== 'yes' && memberAttendance.status !== 'maybe')) {
+            if (!assignment.part || !memberAttendance || (!ATTENDING_STATUSES.includes(memberAttendance.status) && memberAttendance.status !== 'maybe')) {
               return;
             }
 

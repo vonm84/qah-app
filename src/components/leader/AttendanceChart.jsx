@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../contexts/LanguageContext';
 import LongPressTooltip from '../common/LongPressTooltip';
+import { STATUS_20H, STATUS_19H } from '../../config/constants';
 import './AttendanceChart.css';
 
 export default function AttendanceChart() {
@@ -81,7 +82,8 @@ export default function AttendanceChart() {
   const getStatusDisplay = (status) => {
     if (!status) return 'N/A';
     const displays = {
-      yes: t('yes'),
+      [STATUS_20H]: t('attend_20h'),
+      [STATUS_19H]: t('attend_19h'),
       no: t('no'),
       maybe: t('maybe')
     };
@@ -90,7 +92,8 @@ export default function AttendanceChart() {
 
   const getStatusColor = (status) => {
     const colors = {
-      yes: '#27ae60',    // green
+      [STATUS_20H]: '#27ae60',  // green (20h, the original "Yes")
+      [STATUS_19H]: '#2980b9',  // blue (19h)
       no: '#e74c3c',     // red
       maybe: '#f39c12',  // amber
       null: '#95a5a6'    // grey

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { REHEARSAL_DAY } from '../../config/constants';
+import { REHEARSAL_DAY, STATUS_20H, STATUS_19H } from '../../config/constants';
 import './Attendance.css';
 
 export default function Attendance() {
@@ -181,6 +181,13 @@ export default function Attendance() {
     return date.toLocaleDateString(t === 'pt' ? 'pt-BR' : 'en-US', options);
   };
 
+  const attendanceOptions = [
+    { value: STATUS_20H, label: t('attend_20h') },
+    { value: STATUS_19H, label: t('attend_19h') },
+    { value: 'no', label: t('no') },
+    { value: 'maybe', label: t('maybe') }
+  ];
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -195,33 +202,20 @@ export default function Attendance() {
             <div key={rehearsal.date} className="date-card">
               <div className="date-header">{formatDate(rehearsal.date)}</div>
               <div className="attendance-options">
-                <label className={attendance[rehearsal.date]?.status === 'yes' ? 'selected' : ''}>
-                  <input
-                    type="radio"
-                    name={`attendance-${rehearsal.date}`}
-                    checked={attendance[rehearsal.date]?.status === 'yes'}
-                    onChange={() => handleAttendanceChange(rehearsal.date, 'yes')}
-                  />
-                  <span>{t('yes')}</span>
-                </label>
-                <label className={attendance[rehearsal.date]?.status === 'no' ? 'selected' : ''}>
-                  <input
-                    type="radio"
-                    name={`attendance-${rehearsal.date}`}
-                    checked={attendance[rehearsal.date]?.status === 'no'}
-                    onChange={() => handleAttendanceChange(rehearsal.date, 'no')}
-                  />
-                  <span>{t('no')}</span>
-                </label>
-                <label className={attendance[rehearsal.date]?.status === 'maybe' ? 'selected' : ''}>
-                  <input
-                    type="radio"
-                    name={`attendance-${rehearsal.date}`}
-                    checked={attendance[rehearsal.date]?.status === 'maybe'}
-                    onChange={() => handleAttendanceChange(rehearsal.date, 'maybe')}
-                  />
-                  <span>{t('maybe')}</span>
-                </label>
+                {attendanceOptions.map(option => (
+                  <label
+                    key={option.value}
+                    className={attendance[rehearsal.date]?.status === option.value ? 'selected' : ''}
+                  >
+                    <input
+                      type="radio"
+                      name={`attendance-${rehearsal.date}`}
+                      checked={attendance[rehearsal.date]?.status === option.value}
+                      onChange={() => handleAttendanceChange(rehearsal.date, option.value)}
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                ))}
               </div>
               {attendance[rehearsal.date]?.status === 'maybe' && attendance[rehearsal.date]?.comment && (
                 <div className="maybe-comment">

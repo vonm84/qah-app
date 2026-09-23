@@ -244,3 +244,7 @@
     font-size: 13px;
   }
 }
+
+.attendance-breakdown-spacer {
+  height: 30px;
+}
