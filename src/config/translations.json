@@ -61,7 +61,8 @@
     "month_9": "September",
     "month_10": "October",
     "month_11": "November",
-    "month_12": "December"
+    "month_12": "December",
+    "user_not_found": "The user doesn't exist. Add new user?"
   },
   "pt": {
     "app_title": "Queer at Heart Ensaios",
@@ -125,6 +126,7 @@
     "month_9": "Setembro",
     "month_10": "Outubro",
     "month_11": "Novembro",
-    "month_12": "Dezembro"
+    "month_12": "Dezembro",
+    "user_not_found": "Este usuário não existe. Adicionar novo usuário?"
   }
 }

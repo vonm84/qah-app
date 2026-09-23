@@ -5,6 +5,7 @@ import { readinessLevels } from '../../config/readinessLevels';
 import UpcomingRehearsals from '../leader/UpcomingRehearsals';
 import BirthdayList from '../common/BirthdayList';
 import LongPressTooltip from '../common/LongPressTooltip';
+import SongBreakdown from '../common/SongBreakdown';
 import './OverallView.css';
 
 export default function OverallView() {
@@ -150,6 +151,8 @@ export default function OverallView() {
           ))}
         </div>
       </div>
+
+      <SongBreakdown songs={songs} assignments={assignments} />
     </>
   );
 

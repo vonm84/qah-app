@@ -6,7 +6,7 @@ import './Login.css';
 export default function Login() {
   const { login, checkMemberExists } = useAuth();
   const { language, setLanguage, t } = useLanguage();
-  const [step, setStep] = useState('password'); // password, language, name, profile, confirm
+  const [step, setStep] = useState('password'); // password, language, name, confirm_new, profile, confirm
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [pronounsEn, setPronounsEn] = useState('');
@@ -46,8 +46,8 @@ export default function Login() {
         setExistingMember(member);
         setStep('confirm');
       } else {
-        // New member - show profile screen
-        setStep('profile');
+        // Name not found - ask before creating a new member (avoids accidental duplicates)
+        setStep('confirm_new');
       }
     } catch (err) {
       setError(err.message);
@@ -64,6 +64,15 @@ export default function Login() {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleConfirmNewYes = () => {
+    setStep('profile');
+  };
+
+  const handleConfirmNewNo = () => {
+    // Keep the typed name so a typo can be corrected
+    setStep('name');
   };
 
   const handleConfirmYes = async () => {
@@ -175,6 +184,16 @@ export default function Login() {
             <div className="confirm-buttons">
               <button onClick={handleConfirmYes}>{t('yes')}</button>
               <button onClick={handleConfirmNo}>{t('no')}</button>
+            </div>
+          </div>
+        )}
+
+        {step === 'confirm_new' && (
+          <div className="confirm-existing">
+            <p>{t('user_not_found')}</p>
+            <div className="confirm-buttons">
+              <button onClick={handleConfirmNewYes}>{t('yes')}</button>
+              <button onClick={handleConfirmNewNo}>{t('no')}</button>
             </div>
           </div>
         )}

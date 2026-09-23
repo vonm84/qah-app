@@ -73,7 +73,23 @@ export default function ManageSongs() {
   const handleSaveCSV = async () => {
     try {
       const parsed = parseCSV(csvText);
+
+      // SAFETY: never save an empty or malformed song list. Deleting a song
+      // cascade-deletes every member's part assignment for that song.
+      if (parsed.length === 0) {
+        alert('Nothing saved: the song list is empty. If the list failed to load, refresh the page and try again.');
+        return;
+      }
+      if (parsed.some(s => !s.name)) {
+        alert('Nothing saved: at least one line has no song name.');
+        return;
+      }
       const parsedNames = parsed.map(s => s.name);
+      const duplicates = parsedNames.filter((n, i) => parsedNames.indexOf(n) !== i);
+      if (duplicates.length > 0) {
+        alert('Nothing saved: duplicate song names: ' + [...new Set(duplicates)].join(', '));
+        return;
+      }
 
       // Get current songs to determine what to update/delete/insert
       const { data: currentSongs, error: fetchError } = await supabase
@@ -88,21 +104,28 @@ export default function ManageSongs() {
       // Songs to delete (exist in DB but not in new CSV)
       const toDelete = currentSongs?.filter(s => !parsedNames.includes(s.name)) || [];
 
+      // SAFETY: refuse to wipe every existing song in one save.
+      if (currentSongs.length > 0 && toDelete.length === currentSongs.length) {
+        alert('Nothing saved: this would delete ALL existing songs and everyone\'s part assignments. Check the song names, or remove songs a few at a time.');
+        return;
+      }
+
+      // SAFETY: any deletion (including a renamed song) must be confirmed explicitly.
+      if (toDelete.length > 0) {
+        const names = toDelete.map(s => '  - ' + s.name).join('\n');
+        const ok = confirm(
+          'WARNING: these songs are not in the list and will be DELETED, ' +
+          'together with every member\'s part and readiness for them:\n\n' + names +
+          '\n\nRenaming a song counts as delete + new song. Continue?'
+        );
+        if (!ok) return;
+      }
+
       // Songs to update (exist in both)
       const toUpdate = parsed.filter(s => currentByName[s.name]);
 
       // Songs to insert (new in CSV)
       const toInsert = parsed.filter(s => !currentByName[s.name]);
-
-      // Delete removed songs (this will cascade delete their assignments)
-      if (toDelete.length > 0) {
-        const deleteIds = toDelete.map(s => s.id);
-        const { error: deleteError } = await supabase
-          .from('songs')
-          .delete()
-          .in('id', deleteIds);
-        if (deleteError) throw deleteError;
-      }
 
       // Update existing songs (preserves IDs and assignments!)
       for (const song of toUpdate) {
@@ -122,6 +145,17 @@ export default function ManageSongs() {
             parts: song.parts
           })));
         if (insertError) throw insertError;
+      }
+
+      // Delete removed songs LAST, only after updates/inserts succeeded
+      // (this cascade-deletes their assignments)
+      if (toDelete.length > 0) {
+        const deleteIds = toDelete.map(s => s.id);
+        const { error: deleteError } = await supabase
+          .from('songs')
+          .delete()
+          .in('id', deleteIds);
+        if (deleteError) throw deleteError;
       }
 
       alert('Songs updated successfully!');

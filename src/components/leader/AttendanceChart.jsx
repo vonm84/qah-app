@@ -36,10 +36,17 @@ export default function AttendanceChart() {
 
       if (datesError) throw datesError;
 
-      // Fetch all attendance
-      const { data: attendanceData, error: attendanceError } = await supabase
-        .from('attendance')
-        .select('*');
+      // Fetch attendance only for the upcoming dates shown. Fetching the whole
+      // table would hit Supabase's 1000-row limit and silently drop answers.
+      const upcomingDates = (datesData || []).map(d => d.date);
+      let attendanceData = [];
+      let attendanceError = null;
+      if (upcomingDates.length > 0) {
+        ({ data: attendanceData, error: attendanceError } = await supabase
+          .from('attendance')
+          .select('*')
+          .in('date', upcomingDates));
+      }
 
       if (attendanceError) throw attendanceError;
 
